@@ -54,7 +54,12 @@ var _ = Describe("ResourceMeter Controller", func() {
 						Name:      resourceName,
 						Namespace: resourceNamespace,
 					},
-					// TODO(user): Specify other spec details if needed.
+					Spec: meteringv1alpha1.ResourceMeterSpec{
+						Selector: meteringv1alpha1.ResourceSelector{},
+						Resources: []meteringv1alpha1.ResourceMetric{
+							{Type: meteringv1alpha1.ResourceTypeCPU, Unit: "core-hour"},
+						},
+					},
 				}
 				Expect(k8sClient.Create(ctx, resource)).To(Succeed())
 			}

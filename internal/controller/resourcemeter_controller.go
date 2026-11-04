@@ -53,7 +53,7 @@ type ResourceMeterReconciler struct {
 // Reconcile is part of the main kubernetes reconciliation loop which aims to
 // move the current state of the cluster closer to the desired state.
 func (r *ResourceMeterReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
-	log := log.FromContext(ctx)
+	logger := log.FromContext(ctx)
 
 	// Fetch the ResourceMeter instance
 	meter := &meteringv1alpha1.ResourceMeter{}
@@ -61,7 +61,7 @@ func (r *ResourceMeterReconciler) Reconcile(ctx context.Context, req ctrl.Reques
 		if errors.IsNotFound(err) {
 			return ctrl.Result{}, nil
 		}
-		log.Error(err, "Failed to get ResourceMeter")
+		logger.Error(err, "Failed to get ResourceMeter")
 		return ctrl.Result{}, err
 	}
 
@@ -73,13 +73,13 @@ func (r *ResourceMeterReconciler) Reconcile(ctx context.Context, req ctrl.Reques
 
 	// List Pods matching the selector
 	if err := r.reconcilePods(ctx, meter); err != nil {
-		log.Error(err, "Failed to reconcile Pods")
+		logger.Error(err, "Failed to reconcile Pods")
 		return ctrl.Result{}, err
 	}
 
 	// List PVCs matching the selector
 	if err := r.reconcilePVCs(ctx, meter); err != nil {
-		log.Error(err, "Failed to reconcile PVCs")
+		logger.Error(err, "Failed to reconcile PVCs")
 		return ctrl.Result{}, err
 	}
 
@@ -93,7 +93,7 @@ func (r *ResourceMeterReconciler) Reconcile(ctx context.Context, req ctrl.Reques
 	})
 
 	if err := r.Status().Update(ctx, meter); err != nil {
-		log.Error(err, "Failed to update ResourceMeter status")
+		logger.Error(err, "Failed to update ResourceMeter status")
 		return ctrl.Result{}, err
 	}
 
@@ -112,7 +112,7 @@ func (r *ResourceMeterReconciler) SetupWithManager(mgr ctrl.Manager) error {
 
 // reconcilePods meters all Pods matching the selector
 func (r *ResourceMeterReconciler) reconcilePods(ctx context.Context, meter *meteringv1alpha1.ResourceMeter) error {
-	log := log.FromContext(ctx)
+	logger := log.FromContext(ctx)
 
 	// List Pods based on selector
 	podList := &corev1.PodList{}
@@ -122,7 +122,7 @@ func (r *ResourceMeterReconciler) reconcilePods(ctx context.Context, meter *mete
 		return err
 	}
 
-	log.Info("Found Pods to meter", "count", len(podList.Items))
+	logger.Info("Found Pods to meter", "count", len(podList.Items))
 
 	for i := range podList.Items {
 		pod := &podList.Items[i]
@@ -133,7 +133,7 @@ func (r *ResourceMeterReconciler) reconcilePods(ctx context.Context, meter *mete
 		}
 
 		if err := r.createOrUpdateUsage(ctx, meter, pod, nil); err != nil {
-			log.Error(err, "Failed to create or update usage for Pod", "pod", pod.Name)
+			logger.Error(err, "Failed to create or update usage for Pod", "pod", pod.Name)
 			return err
 		}
 	}
@@ -143,7 +143,7 @@ func (r *ResourceMeterReconciler) reconcilePods(ctx context.Context, meter *mete
 
 // reconcilePVCs meters all PVCs matching the selector
 func (r *ResourceMeterReconciler) reconcilePVCs(ctx context.Context, meter *meteringv1alpha1.ResourceMeter) error {
-	log := log.FromContext(ctx)
+	logger := log.FromContext(ctx)
 
 	pvcList := &corev1.PersistentVolumeClaimList{}
 	listOpts := r.buildListOptions(meter.Spec.Selector)
@@ -152,13 +152,13 @@ func (r *ResourceMeterReconciler) reconcilePVCs(ctx context.Context, meter *mete
 		return err
 	}
 
-	log.Info("Found PVCs to meter", "count", len(pvcList.Items))
+	logger.Info("Found PVCs to meter", "count", len(pvcList.Items))
 
 	for i := range pvcList.Items {
 		pvc := &pvcList.Items[i]
 
 		if err := r.createOrUpdateUsage(ctx, meter, nil, pvc); err != nil {
-			log.Error(err, "Failed to create or update usage for PVC", "pvc", pvc.Name)
+			logger.Error(err, "Failed to create or update usage for PVC", "pvc", pvc.Name)
 			return err
 		}
 	}
@@ -192,7 +192,7 @@ func (r *ResourceMeterReconciler) buildListOptions(selector meteringv1alpha1.Res
 
 // createOrUpdateUsage creates or updates a ResourceUsage for a Pod or PVC
 func (r *ResourceMeterReconciler) createOrUpdateUsage(ctx context.Context, meter *meteringv1alpha1.ResourceMeter, pod *corev1.Pod, pvc *corev1.PersistentVolumeClaim) error {
-	log := log.FromContext(ctx)
+	logger := log.FromContext(ctx)
 
 	var (
 		name      string
@@ -292,12 +292,12 @@ func (r *ResourceMeterReconciler) createOrUpdateUsage(ctx context.Context, meter
 	})
 
 	if isNew {
-		log.Info("Creating ResourceUsage", "name", usageName)
+		logger.Info("Creating ResourceUsage", "name", usageName)
 		if err := r.Create(ctx, usage); err != nil {
 			return err
 		}
 	} else {
-		log.Info("Updating ResourceUsage", "name", usageName)
+		logger.Info("Updating ResourceUsage", "name", usageName)
 		if err := r.Status().Update(ctx, usage); err != nil {
 			return err
 		}
