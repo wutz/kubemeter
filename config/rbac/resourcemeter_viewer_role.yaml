@@ -1,7 +1,7 @@
 # This rule is not used by the project kubemeter itself.
 # It is provided to allow the cluster admin to help manage permissions for users.
 #
-# Grants read-only access to metering.paratera.com resources.
+# Grants read-only access to metering.wutz.dev resources.
 # This role is intended for users who need visibility into these resources
 # without permissions to modify them. It is ideal for monitoring purposes and limited-access viewing.
 
@@ -14,7 +14,7 @@ metadata:
   name: resourcemeter-viewer-role
 rules:
 - apiGroups:
-  - metering.paratera.com
+  - metering.wutz.dev
   resources:
   - resourcemeters
   verbs:
@@ -22,7 +22,7 @@ rules:
   - list
   - watch
 - apiGroups:
-  - metering.paratera.com
+  - metering.wutz.dev
   resources:
   - resourcemeters/status
   verbs:
