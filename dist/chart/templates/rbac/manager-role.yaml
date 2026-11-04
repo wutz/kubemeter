@@ -1,0 +1,57 @@
+apiVersion: rbac.authorization.k8s.io/v1
+{{- if .Values.rbac.namespaced }}
+kind: Role
+{{- else }}
+kind: ClusterRole
+{{- end }}
+metadata:
+{{- if .Values.rbac.namespaced }}
+  namespace: {{ .Release.Namespace }}
+{{- end }}
+  name: {{ include "kubemeter.resourceName" (dict "suffix" "manager-role" "context" $) }}
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - persistentvolumeclaims
+  - pods
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - events.k8s.io
+  resources:
+  - events
+  verbs:
+  - create
+  - patch
+- apiGroups:
+  - metering.wutz.dev
+  resources:
+  - resourcemeters
+  - resourceusages
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - metering.wutz.dev
+  resources:
+  - resourcemeters/finalizers
+  - resourceusages/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - metering.wutz.dev
+  resources:
+  - resourcemeters/status
+  - resourceusages/status
+  verbs:
+  - get
+  - patch
+  - update

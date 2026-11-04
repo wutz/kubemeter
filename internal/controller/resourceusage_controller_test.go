@@ -54,7 +54,11 @@ var _ = Describe("ResourceUsage Controller", func() {
 						Name:      resourceName,
 						Namespace: resourceNamespace,
 					},
-					// TODO(user): Specify other spec details if needed.
+					Spec: meteringv1alpha1.ResourceUsageSpec{
+						MeterRef:    "test-meter",
+						ResourceRef: meteringv1alpha1.ResourceReference{Name: "test-pod", Kind: "Pod"},
+						TimeRange:   meteringv1alpha1.TimeRange{StartTime: metav1.Now()},
+					},
 				}
 				Expect(k8sClient.Create(ctx, resource)).To(Succeed())
 			}
