@@ -90,7 +90,7 @@ Business systems can aggregate costs by:
 ```go
 // +kubebuilder:rbac:groups="",resources=pods,verbs=get;list;watch
 // +kubebuilder:rbac:groups="",resources=persistentvolumeclaims,verbs=get;list;watch
-// +kubebuilder:rbac:groups=metering.paratera.com,resources=resourceusages,verbs=get;list;watch;create;update;patch;delete
+// +kubebuilder:rbac:groups=metering.wutz.dev,resources=resourceusages,verbs=get;list;watch;create;update;patch;delete
 ```
 
 ### Parent Reference Extraction
@@ -254,7 +254,7 @@ if errors.IsNotFound(err) {
 If metering external resources (cloud storage, databases):
 
 ```go
-const finalizerName = "metering.paratera.com/finalizer"
+const finalizerName = "metering.wutz.dev/finalizer"
 
 // Add finalizer
 if !controllerutil.ContainsFinalizer(meter, finalizerName) {

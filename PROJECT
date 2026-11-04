@@ -3,7 +3,7 @@
 # and allow the plugins properly work.
 # More info: https://book.kubebuilder.io/reference/project-config.html
 cliVersion: 4.16.0
-domain: paratera.com
+domain: wutz.dev
 layout:
 - go.kubebuilder.io/v4
 projectName: kubemeter
@@ -13,7 +13,7 @@ resources:
     crdVersion: v1
     namespaced: true
   controller: true
-  domain: paratera.com
+  domain: wutz.dev
   group: metering
   kind: ResourceMeter
   path: github.com/wutz/kubemeter/api/v1alpha1
@@ -22,7 +22,7 @@ resources:
     crdVersion: v1
     namespaced: true
   controller: true
-  domain: paratera.com
+  domain: wutz.dev
   group: metering
   kind: ResourceUsage
   path: github.com/wutz/kubemeter/api/v1alpha1

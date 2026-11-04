@@ -41,11 +41,11 @@ type ResourceMeterReconciler struct {
 	Scheme *runtime.Scheme
 }
 
-// +kubebuilder:rbac:groups=metering.paratera.com,resources=resourcemeters,verbs=get;list;watch;create;update;patch;delete
-// +kubebuilder:rbac:groups=metering.paratera.com,resources=resourcemeters/status,verbs=get;update;patch
-// +kubebuilder:rbac:groups=metering.paratera.com,resources=resourcemeters/finalizers,verbs=update
-// +kubebuilder:rbac:groups=metering.paratera.com,resources=resourceusages,verbs=get;list;watch;create;update;patch;delete
-// +kubebuilder:rbac:groups=metering.paratera.com,resources=resourceusages/status,verbs=get;update;patch
+// +kubebuilder:rbac:groups=metering.wutz.dev,resources=resourcemeters,verbs=get;list;watch;create;update;patch;delete
+// +kubebuilder:rbac:groups=metering.wutz.dev,resources=resourcemeters/status,verbs=get;update;patch
+// +kubebuilder:rbac:groups=metering.wutz.dev,resources=resourcemeters/finalizers,verbs=update
+// +kubebuilder:rbac:groups=metering.wutz.dev,resources=resourceusages,verbs=get;list;watch;create;update;patch;delete
+// +kubebuilder:rbac:groups=metering.wutz.dev,resources=resourceusages/status,verbs=get;update;patch
 // +kubebuilder:rbac:groups="",resources=pods,verbs=get;list;watch
 // +kubebuilder:rbac:groups="",resources=persistentvolumeclaims,verbs=get;list;watch
 // +kubebuilder:rbac:groups=events.k8s.io,resources=events,verbs=create;patch

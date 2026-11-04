@@ -53,7 +53,7 @@ make deploy IMG=ghcr.io/wutz/kubemeter:latest
 #### 计量 Pod 资源
 
 ```yaml
-apiVersion: metering.paratera.com/v1alpha1
+apiVersion: metering.wutz.dev/v1alpha1
 kind: ResourceMeter
 metadata:
   name: pod-meter
@@ -79,7 +79,7 @@ spec:
 #### 计量 PVC 资源
 
 ```yaml
-apiVersion: metering.paratera.com/v1alpha1
+apiVersion: metering.wutz.dev/v1alpha1
 kind: ResourceMeter
 metadata:
   name: pvc-meter

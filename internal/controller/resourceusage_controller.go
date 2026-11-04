@@ -33,9 +33,9 @@ type ResourceUsageReconciler struct {
 	Scheme *runtime.Scheme
 }
 
-// +kubebuilder:rbac:groups=metering.paratera.com,resources=resourceusages,verbs=get;list;watch;create;update;patch;delete
-// +kubebuilder:rbac:groups=metering.paratera.com,resources=resourceusages/status,verbs=get;update;patch
-// +kubebuilder:rbac:groups=metering.paratera.com,resources=resourceusages/finalizers,verbs=update
+// +kubebuilder:rbac:groups=metering.wutz.dev,resources=resourceusages,verbs=get;list;watch;create;update;patch;delete
+// +kubebuilder:rbac:groups=metering.wutz.dev,resources=resourceusages/status,verbs=get;update;patch
+// +kubebuilder:rbac:groups=metering.wutz.dev,resources=resourceusages/finalizers,verbs=update
 
 // Reconcile is part of the main kubernetes reconciliation loop which aims to
 // move the current state of the cluster closer to the desired state.

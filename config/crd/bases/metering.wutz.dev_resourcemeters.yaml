@@ -4,9 +4,9 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.22.0
-  name: resourcemeters.metering.paratera.com
+  name: resourcemeters.metering.wutz.dev
 spec:
-  group: metering.paratera.com
+  group: metering.wutz.dev
   names:
     kind: ResourceMeter
     listKind: ResourceMeterList
