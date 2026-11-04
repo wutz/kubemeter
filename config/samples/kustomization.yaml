@@ -1,0 +1,5 @@
+## Append samples of your project ##
+resources:
+- metering_v1alpha1_resourcemeter.yaml
+- metering_v1alpha1_resourceusage.yaml
+# +kubebuilder:scaffold:manifestskustomizesamples

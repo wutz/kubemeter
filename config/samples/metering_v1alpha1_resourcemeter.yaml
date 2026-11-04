@@ -1,0 +1,9 @@
+apiVersion: metering.paratera.com/v1alpha1
+kind: ResourceMeter
+metadata:
+  labels:
+    app.kubernetes.io/name: kubemeter
+    app.kubernetes.io/managed-by: kustomize
+  name: resourcemeter-sample
+spec:
+  # TODO(user): Add fields here

@@ -1,0 +1,19 @@
+apiVersion: metering.paratera.com/v1alpha1
+kind: ResourceMeter
+metadata:
+  name: pvc-meter
+  namespace: default
+spec:
+  selector:
+    namespaces:
+      - default
+    labelSelector:
+      matchLabels:
+        # type: training-data
+    resourceTypes:
+      - PersistentVolumeClaim
+  resources:
+    - type: storage
+      unit: GiB
+  collectionInterval: 5m
+  retentionPeriod: 720h  # 30 days

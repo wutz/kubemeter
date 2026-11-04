@@ -1,0 +1,51 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: manager-role
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - persistentvolumeclaims
+  - pods
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - events.k8s.io
+  resources:
+  - events
+  verbs:
+  - create
+  - patch
+- apiGroups:
+  - metering.paratera.com
+  resources:
+  - resourcemeters
+  - resourceusages
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - metering.paratera.com
+  resources:
+  - resourcemeters/finalizers
+  - resourceusages/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - metering.paratera.com
+  resources:
+  - resourcemeters/status
+  - resourceusages/status
+  verbs:
+  - get
+  - patch
+  - update

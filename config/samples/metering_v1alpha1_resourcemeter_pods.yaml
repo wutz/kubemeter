@@ -1,0 +1,24 @@
+apiVersion: metering.paratera.com/v1alpha1
+kind: ResourceMeter
+metadata:
+  name: pod-meter
+  namespace: default
+spec:
+  selector:
+    # 监控所有命名空间的 Pod
+    namespaces: []
+    # 可以通过标签筛选特定的 Pod
+    labelSelector:
+      matchLabels:
+        # app: myapp
+    resourceTypes:
+      - Pod
+  resources:
+    - type: cpu
+      unit: core-hour
+    - type: memory
+      unit: GiB-hour
+    - type: gpu
+      unit: gpu-hour
+  collectionInterval: 1m
+  retentionPeriod: 168h  # 7 days
