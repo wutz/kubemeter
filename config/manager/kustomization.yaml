@@ -1,2 +1,8 @@
 resources:
 - manager.yaml
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+images:
+- digest: sha256:fd94498409e85e38cc56a5d37ced984ac84ad8c7a9f259096dc08b9aef513259
+  name: controller
+  newName: ghcr.io/wutz/kubemeter
