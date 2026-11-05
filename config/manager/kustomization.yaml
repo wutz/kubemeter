@@ -3,6 +3,6 @@ resources:
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 images:
-- digest: sha256:fd94498409e85e38cc56a5d37ced984ac84ad8c7a9f259096dc08b9aef513259
+- digest: sha256:02d762d53dd001339fdd188ae074647eb76d4be2f1d4181353f3b235a3cf3210
   name: controller
   newName: ghcr.io/wutz/kubemeter
